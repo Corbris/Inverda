@@ -12,6 +12,38 @@
 	Init the folder (git init)
 	add the repo to the folder. (git remote add inverda     [https://github.com/Corbris/Inverda.git](https://github.com/Corbris/Inverda.git))
 
+
+## your git flow for a new feature
+	### make a new branch
+	git pull inverda master    -get latest master
+	git branch <feature_name>    -make a new branch for your feature 
+	git checkout <feature_name>    -move into the branch
+	
+	###commiting/saving changes 
+	git add <fileName>    -move changed file into staging (git add .) for all files
+	git commit -m "message about the change"     -commit changes with a message 
+	git push inverda <feature_name>     -push your commits to github. Only needed if onther people are working on this.
+	
+	### merge with master when finished with feature. 
+	git checkout master    -move to master
+	git pull inverda master    -get latest master branch
+	git checkout <feature_name>    -move back into your feature branch
+	git merge master    -merge your branch with master. This can have merge conflicts that you need to fix. (not sure how this works in Unity... if you need help ask.)
+	
+	### fixing a merge
+	git add .     -fix the merge conflicst add them to staging
+	git commit -m "fixing merge conflicts"    -commit changes
+	
+	### branch and master were merged.
+	git push inverda <feature_name>     -push your local branch to github.com
+	
+	### make a pull request on github.com
+	Make a PR at - https://github.com/Corbris/Inverda/compare
+	The branch should be the same as master with the new feature you were working on. 
+	The PR should tell you that it can merge with no conflicts.
+	Get others to review your PR, and if everyone is good with the changes we can merge it.
+	
+	
 ## Pulling new code from github
 
 	git pull inverda <branch name>
