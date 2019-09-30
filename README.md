@@ -67,3 +67,4 @@
 After working on a feature and you want it to be added to the master branch. You need to make a pull request. A pull request will open a notification that you wish to merge your branch into master. It will allow for all the team members to look at that feature and determine if there will be conflicts with the merge.
 
 ## **any questions please ask me. As long as you never push to master noting can get that messed up....**
+
