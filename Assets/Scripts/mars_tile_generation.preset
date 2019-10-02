@@ -49,3 +49,27 @@ Preset:
     propertyPath: safeZone
     value: 8
     objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: topTile
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: bottomTile
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: forwardTile
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: backwardTile
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: highlightMap
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: elevationMap.Array.size
+    value: 0
+    objectReference: {fileID: 0}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class mars_tile_generation : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class mars_tile_generation : MonoBehaviour
 
     public int safeZone;
 
+    public Tile topTile;
+    public Tile bottomTile;
+    public Tile forwardTile;
+    public Tile backwardTile;
+    public Tilemap highlightMap;
+
     public int[] elevationMap;
     int[,] map;
 
@@ -23,6 +30,7 @@ public class mars_tile_generation : MonoBehaviour
     {
         Debug.Log("start");
         GenerateEvolutionMap();
+        DrawTiles();
         //map = GenerateMap(elevationMap);
     }
 
@@ -31,32 +39,22 @@ public class mars_tile_generation : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)){
             GenerateEvolutionMap();
+            DrawTiles();
         }
     }
 
     private void GenerateEvolutionMap() {
         elevationMap = new int[width];
 
-        //smallestPlatform = 3;
-        //largestPlatform = 7;
-
-        Debug.Log("int gen");
-        //init safe zone.
         InitSafeZone();
-        Debug.Log("int safeZone");
         
         int xIndex = safeZone;
         int elevation = 0;
 
         //generates the elevationMap
-        Debug.Log("While");
         while(xIndex < width) {
             elevation = NewElevation(elevation);
-            Debug.Log("NewElevation");
-            Debug.Log(elevation);
             int platformSize = PlatformSize();
-            Debug.Log("PlatformSize");
-            Debug.Log(platformSize);
             SetEvelutionMap(xIndex, platformSize, elevation);
             xIndex+=platformSize;
         }
@@ -92,24 +90,30 @@ public class mars_tile_generation : MonoBehaviour
             {
                 elevationMap[xIndex] = elevation;
                 xIndex++;
-                Debug.Log("SetMap");
-                Debug.Log(elevation);
-                Debug.Log(elevationMap[xIndex]);
             }
         }
     }
 
-    void OnDrawGizmos() {
+    void DrawTiles() {
+        highlightMap.ClearAllTiles();
         if(elevationMap.Length != 0){
-            
-            for(int x=0; x<width-1; x++){
-                for(int y=-5; y<=elevationMap[x]; y++){
-                    Vector3 pos = new Vector3(x + .5f, y +.5f, 0);
-                    Gizmos.color = Color.grey;
+            for(int x=0; x<width; x++){
+                for(int y=-1; y<=elevationMap[x]; y++){
+                    Vector3Int pos = new Vector3Int(x, y, 0);
                     if(y == elevationMap[x]){
-                        Gizmos.color = Color.red;
+                        if(x>0 && elevationMap[x] > elevationMap[x-1]){
+                            highlightMap.SetTile(pos, forwardTile);
+                        }
+                        else if(x<width-1 && elevationMap[x] > elevationMap[x+1]){
+                            highlightMap.SetTile(pos, backwardTile);
+                        }
+                        else{
+                            highlightMap.SetTile(pos, topTile);
+                        }
                     }
-                    Gizmos.DrawCube(pos, Vector3.one);
+                    else{
+                        highlightMap.SetTile(pos, bottomTile);
+                    }
                 }
                 
             }
